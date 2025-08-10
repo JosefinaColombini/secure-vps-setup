@@ -23,6 +23,9 @@ sudo ufw allow 51820/udp
 # Allow SSH ONLY from specific WireGuard peers
 sudo ufw allow in on wg0 from 10.0.0.10 to any port 22 proto tcp
 
+# Allow Streamlit app ONLY via VPN interface
+sudo ufw allow in on wg0 to any port 8501 proto tcp
+
 # Enable firewall and logging
 sudo ufw logging on
 sudo ufw --force enable
