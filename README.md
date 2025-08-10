@@ -33,5 +33,5 @@ sudo
 ```
 
 ### 2. Basic Firewall Configuration (UFW)
-See ufw-rules.sh for exac rules
+See [ufw-rules.sh](ufw-rules.sh) for exact rules
 
