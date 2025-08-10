@@ -1,15 +1,17 @@
-Used WG-QUICK for its easy bring up of WireGuard interface. For more info: https://git.zx2c4.com/wireguard-tools/about/src/man/wg-quick.8
+Used wg-quick for easy bring-up of the WireGuard interface.. For more info: https://git.zx2c4.com/wireguard-tools/about/src/man/wg-quick.8
 
 ON THE HOST
 
-``` bash
 [Interface]
 PrivateKey = SERVER_PRIVATEKEY
 Address =x.x.x.x/24
 ListenPort = 51820
 
+# Enable NAT and forwarding when the interface starts
 PostUp = iptables -t nat -A POSTROUTING -s x.x.x.x/24 -o eth0 -j MASQUERADE
 PostUp = iptables -A FORWARD -i wg0 -j ACCEPT
+
+# Remove NAT and forwarding rules when the interface stops
 PostDown = iptables -t nat -D POSTROUTING -s x.x.x.x/24 -o eth0 -j MASQUERADE
 PostDown = iptables -D FORWARD -i wg0 -j ACCEPT
 
@@ -17,7 +19,6 @@ PostDown = iptables -D FORWARD -i wg0 -j ACCEPT
 PublicKey = CLIENTKEY
 AllowedIPs = x.x.x.x/32
 
-```
 
 ----------------------
 
@@ -36,6 +37,8 @@ PersistentKeepalive = 25
 
 
 Notes:
+The default IPs are 10.0.0.0/24 but you can choose your own (kinda) that's why i decided to leave them as x.x.x.x/xx
+
 PostUp/PostDown rules ensure traffic from VPN clients is NATed and forwarded correctly through the server’s eth0 interface.
 
 PersistentKeepalive = 25 prevents idle peers from being dropped due to NAT timeouts.
