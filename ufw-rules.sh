@@ -7,7 +7,7 @@
 #     - Restrict SSH ports to specific VPN peers
 #     - Allow all outgoing traffic
 #
-# NOTE: Replace 10.0.0.10 with your WireGuard peer IPs.
+# NOTE: Replace x.x.x.x with your WireGuard peer IPs.
 
 # Reset existing rules
 sudo ufw --force reset
@@ -21,7 +21,7 @@ sudo ufw allow 51820/udp
 
 
 # Allow SSH ONLY from specific WireGuard peers
-sudo ufw allow in on wg0 from 10.0.0.10 to any port 22 proto tcp
+sudo ufw allow in on wg0 from x.x.x.x to any port 22 proto tcp
 
 # Allow Streamlit app ONLY via VPN interface
 sudo ufw allow in on wg0 to any port 8501 proto tcp
