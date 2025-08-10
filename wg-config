@@ -1,5 +1,8 @@
-#Used WG-QUICK for its easy bring up of WireGuard interface. For more info: https://git.zx2c4.com/wireguard-tools/about/src/man/wg-quick.8
-#On the host:
+Used WG-QUICK for its easy bring up of WireGuard interface. For more info: https://git.zx2c4.com/wireguard-tools/about/src/man/wg-quick.8
+
+ON THE HOST
+
+``` bash
 [Interface]
 PrivateKey = SERVER_PRIVATEKEY
 Address =x.x.x.x/24
@@ -14,7 +17,11 @@ PostDown = iptables -D FORWARD -i wg0 -j ACCEPT
 PublicKey = CLIENTKEY
 AllowedIPs = x.x.x.x/32
 
-#Client's side:
+```
+
+----------------------
+
+CLIENT'S SIDE:
 
 [Interface]
 PrivateKey = CLIENT_PRIVATEKEY
@@ -26,3 +33,13 @@ PublicKey = SERVERKEY
 AllowedIPs = x.x.x.x24
 Endpoint = SERVERIP:51820
 PersistentKeepalive = 25 
+
+
+Notes:
+PostUp/PostDown rules ensure traffic from VPN clients is NATed and forwarded correctly through the server’s eth0 interface.
+
+PersistentKeepalive = 25 prevents idle peers from being dropped due to NAT timeouts.
+
+Replace placeholders (<SERVER_PRIVATEKEY>, <SERVER_PUBLIC_IP>, etc.) with your actual values.
+
+
