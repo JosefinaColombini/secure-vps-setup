@@ -82,7 +82,12 @@ See [ufw-rules.sh](ufw-rules.sh) for exact rules, including:
   - Allow all outgoing traffic
 
 ### 3. VPN Setup (WireGuard)
-Configure /etc/wireguard/wg0.conf for server & peers (check [wg-rules.sh](wg-rules.sh))
+Configure /etc/wireguard/wg0.conf for server & peers (check [wg-rules.sh](wg-rules.sh)). 
+For a full guide, follow https://www.wireguard.com/quickstart/. For reference this is what i did:
+``` bash
+wg genkey | tee privatekey | wg pubkey > publickey
+nano /path/to/wg0.conf
+```
 
 Start WireGuard after setting up all config:
 ``` bash
