@@ -1,1 +1,35 @@
+#I had to deploy a simple but efficient web app to let the owner update prices to their scale system (3/4 scales in total).
+#Also, I mounted the files/folders I needed but feel free to add/delete based on your own needs!
 
+services:
+  web-app:
+    image: web-image:1.0.0             # pinning a tag (e.g., 1.0.0) is safer/reproducible than 'latest'
+    container_name: web-app
+    restart: unless-stopped
+    # Bind host side to the server's WireGuard IP ONLY (example 10.0.0.1)
+    ports:
+      - "10.0.0.1:8501:8501"
+    # Run as non-root if possible (adjust to your image/app)
+    user: "1001:1001"                   # create matching uid:gid on host or use your app user
+    volumes:
+      - /path/to/price/exportation_folder:/app/exportation_folder:rw
+      - /path/to/prices.csv:/app/prices.csv:rw
+      - /path/to/backups:/app/backups:rw
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]    #Lets Docker know if the app is “healthy”
+      interval: 15s
+      timeout: 3s
+      retries: 5
+    logging:      # Docker stores logs forever until the disk fills up — bad for production.
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:        # Good for preventing one container from eating all server resources.
+      resources:
+        limits:
+          cpus: "1.0"    
+          memory: "512M"   
+        reservations:
+          cpus: "0.25"      
+          memory: "128M"    
