@@ -35,7 +35,6 @@ sudo usermod -aG sudo adminuser
 **- Install core packages**
 
    Docker: Chose for containerized deployment for easy isolation and portability. Installed the latest Docker Engine & Compose plugin from the official Docker repository (https://docs.docker.com/engine/install/debian/). 
-   You can check the commands here [install-docker.sh](install-docker.sh)
    
   ``` bash
     # Enable Docker to start on boo
@@ -82,7 +81,7 @@ See [ufw-rules.sh](ufw-rules.sh) for exact rules, including:
   - Allow all outgoing traffic
 
 ### 3. VPN Setup (WireGuard)
-Configure /etc/wireguard/wg0.conf for server & peers (check [wg-rules.sh](wg-rules.sh)). 
+Configure /etc/wireguard/wg0.conf for server & peers (check [wg-config](wg-config)). 
 For a full guide, follow https://www.wireguard.com/quickstart/. For reference this is what i did:
 ``` bash
 wg genkey | tee privatekey | wg pubkey > publickey
@@ -103,7 +102,7 @@ sudo wg
 ```
 
 ### 4. Docker Deployment for Streamlit App
-I followed the docs from Streamlit https://docs.streamlit.io/deploy/tutorials/docker
+I followed the docs from Streamlit https://docs.streamlit.io/deploy/tutorials/docker. See [docker-compose.yml](docker-compose.yml) for the container's info.
 
 ### 5. Backup Automation on the Cloud
 We had a very low budget so we decided to backup the VPS on Google Drive with rclone, see [backup-script.sh](backup-script.sh) for automated Rclone backups.
