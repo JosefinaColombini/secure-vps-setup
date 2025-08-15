@@ -103,7 +103,15 @@ sudo wg
 
 ### 4. Docker Deployment for Streamlit App
 I followed the docs from Streamlit https://docs.streamlit.io/deploy/tutorials/docker. See [docker-compose.yml](docker-compose.yml) for the container's info.
+Create the image:
+``` bash
+docker build -t <image_name>:<tag> .
+```
 
+Start the docker container with docker compose:
+``` bash
+docker compose up -d --build
+```
 ### 5. Backup Automation on the Cloud
 We had a very low budget so we decided to backup the VPS on Google Drive with rclone, see [backup-script.sh](backup-script.sh) for automated Rclone backups.
 - Set cron job:
