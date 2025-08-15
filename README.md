@@ -1,6 +1,6 @@
-# Secure VPS Setup for Small Retail Business
+# VPS Setup for Small Retail Business
 
-This project documents the configuration and deployment of a secure Linux-based VPS for a small retail store.  
+This project documents the configuration and deployment of a Linux-based VPS for a small retail store.  
 The server hosts a custom automation app, supports secure remote management via VPN, and includes automated backups.
 
 ---
